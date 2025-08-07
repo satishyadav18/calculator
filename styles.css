@@ -1,0 +1,136 @@
+
+/* Light Theme (Default) */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.calculator {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+  max-width: 320px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+#display {
+  width: 100%;
+  height: 50px;
+  background-color: #eee;
+  color: #333;
+  border: none;
+  text-align: right;
+  padding: 10px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+button.equals {
+  background-color: #f39c12;
+  color: #fff;
+  width: 100%;
+}
+
+button.equals:hover {
+  background-color: #e67e22;
+}
+
+button.zero {
+  grid-column: span 2;
+}
+
+/* Dark Theme */
+body.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+body.dark .calculator {
+  background-color: #444;
+}
+
+body.dark #display {
+  background-color: #555;
+  color: #fff;
+}
+
+body.dark button {
+  background-color: #666;
+  color: #fff;
+}
+
+body.dark button:hover {
+  background-color: #777;
+}
+
+
+body.dark button.equals {
+  background-color: #f39c12;
+  color: #fff;
+}
+
+body.dark button.equals:hover {
+  background-color: #e67e22;
+}
+
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .calculator {
+    padding: 15px;
+  }
+  button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
