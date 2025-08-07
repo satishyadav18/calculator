@@ -18,14 +18,38 @@ document.addEventListener("DOMContentLoaded", () => {
     display.value = display.value.slice(0, -1);
   }
 
-  // Calculate result securely
-  function calculateResult() {
-    try {
-      display.value = new Function("return " + display.value)();
-    } catch {
-      display.value = "Error";
-    }
+  // Convert degrees to radians
+  function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
   }
+
+  // Custom evaluator for expressions like sin(30)
+  function calculateResult() {
+  try {
+    let expr = display.value;
+
+    // Handle function without parentheses: sin30 → sin(30)
+    expr = expr.replace(/(sin|cos|tan|cot|sec|cosec|sqrt)(\d+(\.\d+)?)/g, '$1($2)');
+
+    // Now replace trig functions with Math equivalents in radians
+    expr = expr.replace(/sin\(([^)]+)\)/g, (_, val) => `Math.sin(toRadians(${val}))`);
+    expr = expr.replace(/cos\(([^)]+)\)/g, (_, val) => `Math.cos(toRadians(${val}))`);
+    expr = expr.replace(/tan\(([^)]+)\)/g, (_, val) => `Math.tan(toRadians(${val}))`);
+    expr = expr.replace(/cot\(([^)]+)\)/g, (_, val) => `(1 / Math.tan(toRadians(${val})))`);
+    expr = expr.replace(/sec\(([^)]+)\)/g, (_, val) => `(1 / Math.cos(toRadians(${val})))`);
+    expr = expr.replace(/cosec\(([^)]+)\)/g, (_, val) => `(1 / Math.sin(toRadians(${val})))`);
+    expr = expr.replace(/sqrt\(([^)]+)\)/g, (_, val) => `Math.sqrt(${val})`);
+    expr = expr.replace(/([0-9.]+)\^2/g, (_, val) => `Math.pow(${val}, 2)`);
+    expr = expr.replace(/\^/g, '**');
+
+    // Evaluate expression
+    const result = new Function("toRadians", `return ${expr}`)(toRadians);
+    display.value = result;
+  } catch {
+    display.value = "Error";
+  }
+}
+
 
   // Calculate percentage
   function calculatePercentage() {
@@ -36,42 +60,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Calculate trigonometric and other functions
-  function calculateFunction(func) {
-    try {
-      let value = parseFloat(display.value);
-      if (isNaN(value)) throw "Invalid input";
-  
-      switch (func) {
-        case 'sin': display.value = Math.sin(value); break;
-        case 'cos': display.value = Math.cos(value); break;
-        case 'tan': display.value = Math.tan(value); break;
-        case 'cot': display.value = value !== 0 ? 1 / Math.tan(value) : "Error"; break;
-        case 'sec': display.value = value % 90 !== 0 ? 1 / Math.cos(value) : "Error"; break;
-        case 'cosec': display.value = value !== 0 ? 1 / Math.sin(value) : "Error"; break;
-        case 'sqrt': display.value = value >= 0 ? Math.sqrt(value) : "Error"; break;
-        case '^2': display.value = Math.pow(value, 2); break;
-        default: display.value = "Error";
-      }
-    } catch {
-      display.value = "Error";
-    }
-  }
-  
-
   // Dark/Light Mode Toggle
   function toggleTheme() {
     const isDarkMode = document.body.classList.toggle("dark");
     themeToggle.textContent = isDarkMode ? "☀️" : "🌙";
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }
-  
+
   // Apply saved theme preference
   if (localStorage.getItem("theme") === "dark") toggleTheme();
-  
+
   // Event Listener
   themeToggle.addEventListener("click", toggleTheme);
-  
+
   // Event delegation for buttons
   document.querySelector(".buttons").addEventListener("click", (event) => {
     const value = event.target.dataset.value;
@@ -81,14 +82,13 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (value === "DEL") deleteLast();
     else if (value === "=") calculateResult();
     else if (value === "%") calculatePercentage();
-    else if (["sin", "cos", "tan", "cot", "sec", "cosec", "sqrt", "^2"].includes(value)) calculateFunction(value);
     else appendToDisplay(value);
   });
 
+  // Enter key support
   document.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       calculateResult();
     }
   });
-
 });

@@ -79,6 +79,7 @@ button.equals {
   background-color: #f39c12;
   color: #fff;
   width: 100%;
+  grid-row: span 2;
 }
 
 button.equals:hover {

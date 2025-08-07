@@ -12,49 +12,56 @@
       <h2>Calculator</h2>
       <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
     </div>
-    <input type="text" id="display" aria-label="Calculator Display">
-    
+
+    <input type="text" id="display" aria-label="Calculator Display" readonly>
+
     <div class="buttons">
-      <!-- First Row (previously Sixth Row) -->
-      <button data-value="sin" class="function">sin</button>
-      <button data-value="cos" class="function">cos</button>
-      <button data-value="tan" class="function">tan</button>
-      <button data-value="cot" class="function">cot</button>
-      <button data-value="sec" class="function">sec</button>
-      <button data-value="cosec" class="function">cosec</button>
-      <button data-value="sqrt" class="function">√</button>
+      <!-- Function Buttons -->
+      <button data-value="sin(" class="function">sin</button>
+      <button data-value="cos(" class="function">cos</button>
+      <button data-value="tan(" class="function">tan</button>
+      <button data-value="cot(" class="function">cot</button>
+      <button data-value="sec(" class="function">sec</button>
+      <button data-value="cosec(" class="function">cosec</button>
+      <button data-value="sqrt(" class="function">√</button>
       <button data-value="^2" class="function">x²</button>
 
-      <!-- Second Row -->
+      <!-- Operator and Special Buttons -->
       <button data-value="C" class="clear">C</button>
       <button data-value="DEL" class="delete">DEL</button>
       <button data-value="%" class="operator">%</button>
       <button data-value="/" class="operator">/</button>
+      <button data-value="(">(</button>
+      <button data-value=")">)</button>
+      <button data-value="^" class="operator">^</button>
 
-      <!-- Third Row -->
+      <!-- Number Buttons -->
+      <button data-value="*" class="operator">*</button>
       <button data-value="7">7</button>
       <button data-value="8">8</button>
       <button data-value="9">9</button>
-      <button data-value="*" class="operator">*</button>
-
-      <!-- Fourth Row -->
+      
+      <button data-value="-" class="operator">-</button>
       <button data-value="4">4</button>
       <button data-value="5">5</button>
       <button data-value="6">6</button>
-      <button data-value="-" class="operator">-</button>
 
-      <!-- Fifth Row -->
+      <button data-value="+" class="operator">+</button>
       <button data-value="1">1</button>
       <button data-value="2">2</button>
       <button data-value="3">3</button>
-      <button data-value="+" class="operator">+</button>
 
-      <!-- Sixth Row -->
+      <button data-value="=" class="equals">=</button>
       <button data-value="0" class="zero">0</button>
       <button data-value=".">.</button>
-      <button data-value="=" class="equals">=</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
